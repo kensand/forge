@@ -118,15 +118,18 @@ pub enum Choice {
     },
     Streaming {
         finish_reason: Option<String>,
+        index: u32,
         delta: ResponseMessage,
         error: Option<ErrorResponse>,
+        logprobs: Option<serde_json::Value>,
+        token_ids: Option<serde_json::Value>,
     },
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct ResponseMessage {
     pub content: Option<String>,
-    #[serde(alias = "reasoning_content")]
+    pub reasoning_content: Option<String>,
     pub reasoning: Option<String>,
     pub role: Option<String>,
     pub tool_calls: Option<Vec<ToolCall>>,
